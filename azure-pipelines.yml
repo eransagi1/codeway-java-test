@@ -13,15 +13,17 @@ trigger:
 
 pr: none
 
+variables:
+  - template: /lib/codeway-default-pool.yml@templates
+  
+jobs:
 
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'install'
+  - job: "checkout_build"
+    displayName: "Build"
+    steps:
+      - template: steps/java/maven-build-v1.yaml
+        parameters:
+          goals: install
+          sonarScan: no
+          openjdkVersion: 11
+
