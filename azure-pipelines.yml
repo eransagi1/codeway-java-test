@@ -13,6 +13,7 @@ trigger:
 
 pr: none
 
+
 steps:
 - task: Maven@3
   inputs:
